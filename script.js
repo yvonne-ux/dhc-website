@@ -1,119 +1,144 @@
-// Navbar scroll effect
+// ===== Cursor Glow =====
+const glow = document.getElementById('cursorGlow');
+let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
+
+document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+function animateGlow() {
+    glowX += (mouseX - glowX) * 0.08;
+    glowY += (mouseY - glowY) * 0.08;
+    glow.style.left = glowX + 'px';
+    glow.style.top = glowY + 'px';
+    requestAnimationFrame(animateGlow);
+}
+animateGlow();
+
+// ===== Navbar =====
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
 });
 
-// Mobile nav toggle
+// ===== Mobile Nav =====
 const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
+const navMenu = document.getElementById('navMenu');
 
 navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    navToggle.classList.toggle('active');
+    navMenu.classList.toggle('active');
 });
 
-// Close mobile nav on link click
-navLinks.querySelectorAll('a').forEach(link => {
+// Close on link click
+navMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
     });
 });
 
-// Animated counter
+// ===== Animated Counters =====
 function animateCounters() {
-    const counters = document.querySelectorAll('.stat-number');
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
-        const duration = 2000;
+    document.querySelectorAll('.impact-number').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const duration = 2200;
         const start = performance.now();
 
-        function update(now) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            counter.textContent = Math.floor(eased * target);
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            } else {
-                counter.textContent = target;
-            }
+        function tick(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 4);
+            el.textContent = Math.floor(eased * target).toLocaleString();
+            if (progress < 1) requestAnimationFrame(tick);
+            else el.textContent = target.toLocaleString();
         }
-        requestAnimationFrame(update);
+        requestAnimationFrame(tick);
     });
 }
 
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
+// ===== Intersection Observer — Reveal =====
+const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+            revealObserver.unobserve(entry.target);
         }
     });
-}, observerOptions);
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-// Add fade-up animation to elements
-document.querySelectorAll('.value-card, .service-card, .spec-card, .contact-card, .accordion-item').forEach(el => {
-    el.classList.add('fade-up');
-    observer.observe(el);
+// Apply reveal to key elements
+document.querySelectorAll(
+    '.about-layout, .tab-layout, .industry-card, .opp-step, .portal-card, .impact-card, .testimonial-card, .contact-form, .contact-info, .employer-banner'
+).forEach(el => {
+    el.classList.add('reveal');
+    revealObserver.observe(el);
 });
 
-// Counter animation trigger
-const statsSection = document.querySelector('.hero-stats');
-if (statsSection) {
-    const statsObserver = new IntersectionObserver((entries) => {
+// Stagger industry cards
+document.querySelector('.industry-marquee')?.classList.add('stagger-children');
+
+// Counter trigger
+const impactSection = document.querySelector('.impact');
+if (impactSection) {
+    const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 animateCounters();
-                statsObserver.unobserve(entry.target);
+                counterObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.5 });
-    statsObserver.observe(statsSection);
+    }, { threshold: 0.3 });
+    counterObserver.observe(impactSection);
 }
 
-// Accordion
-document.querySelectorAll('.accordion-header').forEach(header => {
-    header.addEventListener('click', () => {
-        const item = header.parentElement;
-        const isActive = item.classList.contains('active');
+// ===== Service Tabs =====
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabPanels = document.querySelectorAll('.tab-panel');
 
-        // Close all
-        document.querySelectorAll('.accordion-item').forEach(i => {
-            i.classList.remove('active');
-        });
+tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const tabId = btn.dataset.tab;
 
-        // Open clicked if it wasn't active
-        if (!isActive) {
-            item.classList.add('active');
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+
+        btn.classList.add('active');
+        document.getElementById('tab-' + tabId).classList.add('active');
+    });
+});
+
+// ===== Form Toggle =====
+const toggleBtns = document.querySelectorAll('.toggle-btn');
+toggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        toggleBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const companyField = document.querySelector('input[name="company"]')?.closest('.form-field');
+        if (btn.dataset.type === 'jobseeker' && companyField) {
+            companyField.querySelector('label').textContent = 'Current / Last Company';
+        } else if (companyField) {
+            companyField.querySelector('label').textContent = 'Company Name';
         }
     });
 });
 
-// Contact form
+// ===== Contact Form =====
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const formData = new FormData(contactForm);
-        const name = formData.get('name');
-
-        // Show success message
         const btn = contactForm.querySelector('button[type="submit"]');
-        const originalText = btn.textContent;
-        btn.textContent = 'Message Sent!';
+        const originalHTML = btn.innerHTML;
+
+        btn.innerHTML = `
+            <span>Message Sent!</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        `;
         btn.style.background = '#10b981';
-        btn.style.boxShadow = '0 4px 14px rgba(16, 185, 129, 0.3)';
+        btn.style.boxShadow = '0 8px 30px rgba(16, 185, 129, 0.25)';
 
         setTimeout(() => {
-            btn.textContent = originalText;
+            btn.innerHTML = originalHTML;
             btn.style.background = '';
             btn.style.boxShadow = '';
             contactForm.reset();
@@ -121,9 +146,9 @@ if (contactForm) {
     });
 }
 
-// Smooth scroll for anchor links
+// ===== Smooth Scroll =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
