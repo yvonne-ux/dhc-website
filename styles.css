@@ -209,30 +209,18 @@ body:hover .cursor-glow { opacity: 1; }
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
 }
 
-.logo-mark {
-    font-family: 'Sora', sans-serif;
-    font-weight: 800;
-    font-size: 1.1rem;
-    color: var(--white);
-    background: var(--accent);
-    padding: 6px 10px;
-    border-radius: var(--radius-xs);
-    letter-spacing: -0.02em;
-    line-height: 1;
+.logo-img {
+    height: 48px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    transition: filter var(--transition);
 }
 
-.logo-text {
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--white);
-    letter-spacing: -0.01em;
+.navbar.scrolled .logo-img {
+    filter: none;
 }
-
-.navbar.scrolled .logo-text { color: var(--dark); }
 
 .nav-menu {
     display: flex;
@@ -1259,7 +1247,10 @@ body:hover .cursor-glow { opacity: 1; }
 }
 
 .footer-brand .logo { margin-bottom: 16px; }
-.footer-brand .logo-text { color: var(--white); }
+.footer-brand .logo-img {
+    filter: brightness(0) invert(1);
+    height: 44px;
+}
 
 .footer-brand p {
     font-size: 0.875rem;
