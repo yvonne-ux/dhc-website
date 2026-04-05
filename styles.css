@@ -214,12 +214,6 @@ body:hover .cursor-glow { opacity: 1; }
 .logo-img {
     height: 48px;
     width: auto;
-    filter: brightness(0) invert(1);
-    transition: filter var(--transition);
-}
-
-.navbar.scrolled .logo-img {
-    filter: none;
 }
 
 .nav-menu {
@@ -1248,7 +1242,6 @@ body:hover .cursor-glow { opacity: 1; }
 
 .footer-brand .logo { margin-bottom: 16px; }
 .footer-brand .logo-img {
-    filter: brightness(0) invert(1);
     height: 44px;
 }
 
