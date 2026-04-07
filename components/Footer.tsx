@@ -1,5 +1,6 @@
 import { Linkedin, Facebook, Mail, Phone, MapPin } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const quickLinks = [
   { label: 'Home', href: '#home' },
@@ -151,9 +152,18 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-slate-600">
-            © 2025 Dynamic Human Capital Pte Ltd. All rights reserved.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-2">
+            <p className="text-xs text-slate-600">
+              © 2025 Dynamic Human Capital Pte Ltd. All rights reserved.
+            </p>
+            <span className="hidden sm:inline text-slate-700">·</span>
+            <Link
+              href="/privacy-policy"
+              className="text-xs text-slate-500 hover:text-blue-400 transition-colors"
+            >
+              Privacy Policy
+            </Link>
+          </div>
           <div className="flex items-center gap-1.5 text-xs text-slate-600">
             <span>Part of</span>
             <a
