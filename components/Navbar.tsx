@@ -48,31 +48,16 @@ export default function Navbar() {
             onClick={(e) => { e.preventDefault(); scrollTo('#home') }}
             className="flex items-center gap-3 group"
           >
-            <div className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center overflow-hidden shadow-md group-hover:shadow-blue-500/40 transition-shadow">
-              <Image
-                src="/images/cropped-favicon.png"
-                alt="DHC"
-                width={36}
-                height={36}
-                className="object-contain"
-              />
-            </div>
-            <div className="flex flex-col leading-none">
-              <span
-                className={`font-sora font-bold text-base tracking-tight transition-colors ${
-                  scrolled ? 'text-blue-900' : 'text-white'
-                }`}
-              >
-                Dynamic Human Capital
-              </span>
-              <span
-                className={`text-xs font-medium transition-colors ${
-                  scrolled ? 'text-blue-500' : 'text-blue-200'
-                }`}
-              >
-                Part of Elitez Group
-              </span>
-            </div>
+            <Image
+              src="/images/dhc-logo.png"
+              alt="Dynamic Human Capital"
+              width={140}
+              height={48}
+              className={`object-contain h-10 w-auto transition-all ${
+                scrolled ? 'brightness-100' : 'brightness-0 invert'
+              }`}
+              priority
+            />
           </a>
 
           {/* Desktop nav */}

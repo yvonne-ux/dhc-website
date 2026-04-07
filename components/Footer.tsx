@@ -27,22 +27,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center overflow-hidden">
-                <Image
-                  src="/images/cropped-favicon.png"
-                  alt="DHC"
-                  width={36}
-                  height={36}
-                  className="object-contain"
-                />
-              </div>
-              <div>
-                <div className="font-sora font-bold text-white text-sm leading-tight">
-                  Dynamic Human Capital
-                </div>
-                <div className="text-blue-400 text-xs">Part of Elitez Group</div>
-              </div>
+            <div className="mb-4">
+              <Image
+                src="/images/dhc-logo.png"
+                alt="Dynamic Human Capital"
+                width={140}
+                height={48}
+                className="object-contain h-10 w-auto brightness-0 invert"
+              />
+              <div className="text-blue-400 text-xs mt-1">Part of Elitez Group</div>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed mb-5">
               People-first staffing solutions connecting talent with opportunity
