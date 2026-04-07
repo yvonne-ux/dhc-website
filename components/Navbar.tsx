@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import Image from 'next/image'
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -48,15 +47,13 @@ export default function Navbar() {
             onClick={(e) => { e.preventDefault(); scrollTo('#home') }}
             className="flex items-center gap-3 group"
           >
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/images/dhc-logo.png"
               alt="Dynamic Human Capital"
-              width={140}
-              height={48}
-              className={`object-contain h-10 w-auto transition-all ${
+              className={`h-10 w-auto object-contain transition-all ${
                 scrolled ? 'brightness-100' : 'brightness-0 invert'
               }`}
-              priority
             />
           </a>
 

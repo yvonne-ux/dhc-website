@@ -1,5 +1,4 @@
 import { Linkedin, Facebook, Mail, Phone, MapPin } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 const quickLinks = [
@@ -28,12 +27,11 @@ export default function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/images/dhc-logo.png"
                 alt="Dynamic Human Capital"
-                width={140}
-                height={48}
-                className="object-contain h-10 w-auto brightness-0 invert"
+                className="h-10 w-auto object-contain brightness-0 invert"
               />
               <div className="text-blue-400 text-xs mt-1">Part of Elitez Group</div>
             </div>
