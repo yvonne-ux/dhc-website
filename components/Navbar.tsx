@@ -49,11 +49,9 @@ export default function Navbar() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/dhc-logo.png"
+              src={scrolled ? '/images/dhc-logo.png' : '/images/dhc-logo-white.png'}
               alt="Dynamic Human Capital"
-              className={`h-10 w-auto object-contain transition-all ${
-                scrolled ? 'brightness-100' : 'brightness-0 invert'
-              }`}
+              className="h-10 w-auto object-contain transition-all"
             />
           </a>
 
