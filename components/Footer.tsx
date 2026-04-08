@@ -29,7 +29,7 @@ export default function Footer() {
             <div className="mb-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/dhc-logo.png"
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/dhc-logo.png`}
                 alt="Dynamic Human Capital"
                 className="h-10 w-auto object-contain brightness-0 invert"
               />
