@@ -25,8 +25,16 @@ export const metadata: Metadata = {
     description:
       'Connecting people to meaningful work across Singapore and Southeast Asia.',
     type: 'website',
-  },
-}
+    url: 'https://dhc.com.sg',
+    images: [
+      {
+        url: 'https://dhc.com.sg/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Dynamic Human Capital',
+      },
+    },
+  }
 
 export default function RootLayout({
   children,
