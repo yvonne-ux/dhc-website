@@ -1,11 +1,9 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === 'production'
-
 const nextConfig = {
   output: 'export',
-  basePath: isProd ? '/dhc-website' : '',
+  basePath: '',
   env: {
-    NEXT_PUBLIC_BASE_PATH: isProd ? '/dhc-website' : '',
+    NEXT_PUBLIC_BASE_PATH: '',
   },
   images: {
     unoptimized: true,
